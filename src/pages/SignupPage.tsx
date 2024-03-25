@@ -5,14 +5,8 @@ import ProfileImg from "components/common/ProfileImg"
 import { validation } from "utils/validation"
 import InputBox from "components/common/InputBox"
 import RegularButton from "components/common/RegularButton"
+import { SignupForm } from "types/signupType"
 
-interface SignupForm {
-    id: string
-    pw: string
-    pwCheck: string
-    name: string
-    profileImg: string
-}
 
 const SignupPage = () => {
     const navigate = useNavigate()

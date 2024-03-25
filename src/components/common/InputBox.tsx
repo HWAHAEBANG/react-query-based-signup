@@ -1,6 +1,7 @@
 import { useState, ChangeEvent } from 'react'
 import styles from './InputBox.module.scss'
 import { IoMdWarning, IoMdCheckmarkCircle, IoMdInformationCircle } from "react-icons/io";
+import { Rule } from 'types/validationType';
 
 interface Props<T> {
     inputValue: T
@@ -10,12 +11,6 @@ interface Props<T> {
     placeHolder?: string
     disabled?: boolean
     rule?: Rule<T>[]
-}
-
-export interface Rule<T> {
-    description: string
-    validationMessage: string
-    validator: (inputValue: T) => boolean
 }
 
 const InputBox = <T,>({ inputValue, setInputValue, name, label, placeHolder, disabled, rule }: Props<T>) => {

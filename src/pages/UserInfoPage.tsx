@@ -4,10 +4,12 @@ import RegularButton from 'components/common/RegularButton'
 import { FormEvent, useState } from 'react' 
 import styles from './UserInfoPage.module.scss'
 import { validation } from 'utils/validation'
+import { UserInfoForm } from 'types/userInfoType'
+
 
 const UserInfoPage = () => {
 
-  const [form, setForm] = useState({id:'bcl0206@naver.com', name:'방충림', profileImg:'안녕.jpg', createdAt:'1234.12.12 11:22:33', modifiedAt:'1234.12.12 11:22:33'})
+  const [form, setForm] = useState<UserInfoForm>({id:'bcl0206@naver.com', name:'방충림', profileImg:'안녕.jpg', createdAt:'1234.12.12 11:22:33', modifiedAt:'1234.12.12 11:22:33'})
 
   const logout = () => {
     alert('로그아웃')

@@ -4,11 +4,7 @@ import styles from "./SigninPage.module.scss"
 import { validation } from "utils/validation"
 import InputBox from "components/common/InputBox"
 import RegularButton from "components/common/RegularButton"
-
-interface SigninForm {
-    id: string
-    pw: string
-}
+import { SigninForm } from "types/signinType"
 
 const SigninPage = () => {
     const navigate = useNavigate()
