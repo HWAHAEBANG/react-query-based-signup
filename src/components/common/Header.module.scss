@@ -1,0 +1,47 @@
+@import "styles/variables";
+
+.header {
+    background-color: $color-main;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+    height: 60px;
+    padding: 10px 30px;
+    box-sizing: border-box;
+    color: $color-text-bright;
+    cursor: pointer;
+
+    section {
+        flex:1;
+        
+        img {
+            width: 200px;
+        }
+    }
+
+    nav{
+    &:hover {
+            transform: scale(1.02);
+            }
+
+        a {
+        color: $color-text-bright;
+        font-size: 15px;
+        }
+    } 
+
+    button {
+        background-color: $color-point;
+        color: $color-text-dark;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 20px;
+        font-weight: 700;
+        cursor: pointer;
+
+        &:hover {
+            transform: scale(1.05);
+        }
+    }
+}

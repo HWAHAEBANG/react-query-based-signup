@@ -1,4 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom'
+import styles from './Header.module.scss'
+import logo from 'assets/logo.png'
 
 const Header = () => {
     const navigate = useNavigate();
@@ -12,12 +14,14 @@ const Header = () => {
     }
 
   return (
-    <header>
-        <section>로고영역</section>
+    <header className={styles.header}>
+        <section>
+            <img src={logo} alt="" />
+        </section>
         <nav>
             <ul>
                 <li>
-                    <Link to='/user-info'>회원정보 조회</Link>
+                    <Link to='/user-info'>회원 정보 조회</Link>
                 </li>
             </ul>
         </nav>
