@@ -37,6 +37,11 @@
             padding: 0 20px ;
             border-radius: 5px;
             line-height: 50px;
+            cursor: pointer;
+            
+            &:hover {
+            filter: brightness(0.95);
+            }
         }
 
         input {
