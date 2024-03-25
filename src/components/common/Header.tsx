@@ -5,6 +5,10 @@ import logo from 'assets/logo.png'
 const Header = () => {
     const navigate = useNavigate();
 
+    const moveToHome = () => {
+        navigate('/')
+    }
+
     const moveToSignin = () => {
         navigate('/signin')
     }
@@ -16,7 +20,7 @@ const Header = () => {
   return (
     <header className={styles.header}>
         <section>
-            <img src={logo} alt="" />
+            <img src={logo} alt="" onClick={moveToHome}/>
         </section>
         <nav>
             <ul>
