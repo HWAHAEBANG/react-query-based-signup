@@ -1,10 +1,11 @@
 import './App.scss';
 import { Outlet } from 'react-router-dom'
+import Header from './components/common/Header';
 
 function App() {
   return (
     <div>
-      헤더 영역
+      <Header/>
       <Outlet/>
     </div>
   );
