@@ -1,13 +1,15 @@
-import './App.scss';
+import styles from './App.module.scss';
 import { Outlet } from 'react-router-dom'
 import Header from './components/common/Header';
 
 function App() {
   return (
-    <div>
+    <>
       <Header/>
-      <Outlet/>
-    </div>
+      <div className={styles.outletWrapper}>
+        <Outlet/>
+      </div>
+    </>
   );
 }
 
