@@ -1,0 +1,12 @@
+@import "styles/variables";
+
+.button {
+    background-color: $color-main;
+    width: 100%;
+    height: 50px;
+    border: none;
+    border-radius: 5px;
+    font-size: 15px;
+    color: $color-text-bright;
+    cursor: pointer;
+}
