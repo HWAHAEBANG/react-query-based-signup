@@ -23,6 +23,7 @@
     box-sizing: border-box;
     color: rgb(83, 100, 133);
     z-index: 1;
+    cursor: pointer;
 
     div {
         position: relative;
@@ -63,8 +64,12 @@
     border: 1px solid orange;
 }
 
+.block {
+    background-color: rgba(221, 221, 221,0.6);
+    cursor: not-allowed;
+}
+
 .helperText {
     margin: 5px 5px;
     font-size: 12px;
-    
 }

@@ -7,7 +7,8 @@ interface Props<T> {
     setInputValue: React.Dispatch<React.SetStateAction<T>>
     label: string
     name: string
-    placeHolder: string
+    placeHolder?: string
+    disabled?: boolean
     rule?: Rule<T>[]
 }
 
@@ -17,7 +18,7 @@ export interface Rule<T> {
     validator: (inputValue: T) => boolean
 }
 
-const InputBox = <T,>({ inputValue, setInputValue, name, label, placeHolder, rule }: Props<T>) => {
+const InputBox = <T,>({ inputValue, setInputValue, name, label, placeHolder, disabled, rule }: Props<T>) => {
     
     const [visible, setVisible] = useState(false)
 
@@ -48,10 +49,19 @@ const InputBox = <T,>({ inputValue, setInputValue, name, label, placeHolder, rul
         const idx = rule.findIndex(item => item.validator(inputValue) === false)
         return idx === -1 ? false : rule[idx].validationMessage
     }
+    
+    const classNameDecider = () => {
+        if(disabled) return `${styles.label} ${styles.block}`
+        if(rule && (inputValue as Record<string, string>)[name] && !validation){
+            return `${styles.label} ${styles.warning}`
+        } else {
+            return `${styles.label}`
+        }
+    }
 
     return (
     <div className={styles.wrapper}>
-        <label className={rule && (inputValue as Record<string, string>)[name] && !validation ? `${styles.label} ${styles.warning}` : `${styles.label}`} htmlFor={name}>
+        <label className={classNameDecider()} htmlFor={name}>
             <span>{label}</span>
         {rule && 
             <div>
@@ -78,6 +88,7 @@ const InputBox = <T,>({ inputValue, setInputValue, name, label, placeHolder, rul
             onChange={handleInputValue}
             id={name}
             placeholder={placeHolder}
+            disabled={disabled}
             onFocus={handleFocus}
             onBlur={handleFocus}
             />

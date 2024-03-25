@@ -1,0 +1,18 @@
+@import "styles/variables";
+
+.userInfoForm {    
+    width: 80%;
+
+    .inputSection { 
+        display: flex;
+        flex-direction: column;
+        gap: '30px';
+    }
+
+    .buttonSection {
+        display: flex;
+        justify-content: center;
+        gap: 5px;
+        margin: 20px 0px;
+    }
+}
