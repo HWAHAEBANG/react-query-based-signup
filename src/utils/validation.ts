@@ -1,8 +1,9 @@
 import { SigninForm } from "types/signinType";
 import { SignupForm } from "types/signupType";
+import { UserInfoForm } from "types/userInfoType";
 
 interface Validation {
-    [key: string]: { description: string; validationMessage: string; validator(inputValue: SigninForm | SignupForm): boolean; }[];
+    [key: string]: { description: string; validationMessage: string; validator(inputValue: SigninForm | SignupForm | UserInfoForm): boolean; }[];
 }
 
 
@@ -91,7 +92,7 @@ export const validation:Validation = {
         {
             description: '5자 이하',
             validationMessage: '5자를 초과하였습니다.',
-            validator(inputValue:SignupForm){
+            validator(inputValue: SignupForm){
                 return /^.{1,5}$/.test(inputValue.name)
             },
         },
