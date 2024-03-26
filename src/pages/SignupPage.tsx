@@ -16,7 +16,10 @@ const SignupPage = () => {
     const moveToSignin = () => {
         navigate('/signup')
     }
-    
+
+    const {id, pw, pwCheck, name} = form
+    const allNotEmpty = Object.values({id, pw, pwCheck, name}).some(value => value === '');
+
     const handleSubmit = (e:FormEvent<HTMLFormElement> ) => {
         e.preventDefault()
         signupMutation.mutate(form)
@@ -63,6 +66,7 @@ const SignupPage = () => {
                 <RegularButton
                     onClick={moveToSignin}
                     type="submit"
+                    disabled={allNotEmpty}
                 >
                     회원가입
                 </RegularButton>

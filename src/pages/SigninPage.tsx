@@ -46,7 +46,8 @@ const SigninPage = () => {
             <section className={styles.buttonSection}>
                 <RegularButton 
                     onClick={moveToSignin}
-                    type="button">
+                    type="button"
+                    >
                     회원가입
                 </RegularButton>
                 <RegularButton 
