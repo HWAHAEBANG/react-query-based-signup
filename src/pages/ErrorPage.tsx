@@ -14,7 +14,8 @@ const ErrorPage = () => {
             if (viewportWidth > 770) {
                 setViewPortError(true)
             } else {
-                setViewPortError(false) 
+                setViewPortError(false)
+                navigator(-1)
             }
         };
         window.addEventListener('resize', handleViewportChange);
