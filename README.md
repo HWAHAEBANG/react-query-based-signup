@@ -9,7 +9,8 @@
 
 # 1. 실행 방법
    
-## 1.1. 배포 환경 : http://improved-todo-list.s3-website.ap-northeast-2.amazonaws.com
+## 1.1. 배포 환경
+### URL: http://improved-todo-list.s3-website.ap-northeast-2.amazonaws.com
 ## 1.2. 개발 환경 : npm
 ```
 // 로컬 클라이언트 실행 방법
