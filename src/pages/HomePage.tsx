@@ -1,9 +1,12 @@
 import { MainLogo } from "assets"
 import { useNavigate } from "react-router-dom"
 import styles from './HomePage.module.scss'
+import { useContext } from "react"
+import { SessionContext } from "contexts/SessionProvider"
 
 const HomePage = () => {
     const navigate = useNavigate()
+    const { session } = useContext(SessionContext);
 
     const moveToSignin = () => {
         navigate('/signin')
@@ -16,7 +19,7 @@ const HomePage = () => {
         </section>
         <section className={styles.textSection}>
             <p>한터 글로벌에 오신 것을 환영합니다.</p>
-            <button onClick={moveToSignin}>지금 바로 로그인</button>
+            {!session&& <button onClick={moveToSignin}>지금 바로 로그인</button>}
         </section>
     </main>
   )

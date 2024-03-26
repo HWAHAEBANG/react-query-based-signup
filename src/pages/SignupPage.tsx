@@ -6,11 +6,12 @@ import { validation } from "utils/validation"
 import InputBox from "components/common/InputBox"
 import RegularButton from "components/common/RegularButton"
 import { SignupForm } from "types/signupType"
-
+import useAuth from "hooks/useAuth"
 
 const SignupPage = () => {
     const navigate = useNavigate()
     const [ form, setForm ] = useState<SignupForm>({id: '', pw: '', pwCheck:'', name:'', profileImg:''})
+    const { signupMutation } = useAuth(form.id)
 
     const moveToSignin = () => {
         navigate('/signup')
@@ -18,7 +19,7 @@ const SignupPage = () => {
     
     const handleSubmit = (e:FormEvent<HTMLFormElement> ) => {
         e.preventDefault()
-        alert('제출')
+        signupMutation.mutate(form)
     }
 
     return (

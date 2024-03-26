@@ -1,3 +1,4 @@
+import { useContext, useEffect, useLayoutEffect } from 'react'
 import InputBox from 'components/common/InputBox'
 import ProfileImg from 'components/common/ProfileImg'
 import RegularButton from 'components/common/RegularButton'
@@ -5,20 +6,31 @@ import { FormEvent, useState } from 'react'
 import styles from './UserInfoPage.module.scss'
 import { validation } from 'utils/validation'
 import { UserInfoForm } from 'types/userInfoType'
+import useAuth from 'hooks/useAuth'
+import { SessionContext } from 'contexts/SessionProvider'
+import useSession from 'hooks/useSession'
 
 
 const UserInfoPage = () => {
+  const [form, setForm] = useState<UserInfoForm>({id:'', name:'', profileImg:'', createdAt:'', modifiedAt:''})
+  const { checkSession } = useSession()
+  const { getUserInfoQuery, modifyInfoMutation } = useAuth(checkSession())
+  const { logout } = useContext(SessionContext)
 
-  const [form, setForm] = useState<UserInfoForm>({id:'bcl0206@naver.com', name:'방충림', profileImg:'안녕.jpg', createdAt:'1234.12.12 11:22:33', modifiedAt:'1234.12.12 11:22:33'})
+  const {data, isLoading, error, refetch}= getUserInfoQuery
 
-  const logout = () => {
-    alert('로그아웃')
-  }
+  useEffect(()=>{
+    setForm({...data})
+    refetch()
+  },[setForm, data, refetch])
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    alert('수정 완료')
+    modifyInfoMutation.mutate(form)
   }
+
+  if(isLoading) return <p>로딩중</p>
+  if(error) return <p>에러발생</p>
 
   return (
     <form className={styles.userInfoForm} onSubmit={handleSubmit}>

@@ -5,10 +5,13 @@ import { validation } from "utils/validation"
 import InputBox from "components/common/InputBox"
 import RegularButton from "components/common/RegularButton"
 import { SigninForm } from "types/signinType"
+import useAuth from "hooks/useAuth"
 
 const SigninPage = () => {
     const navigate = useNavigate()
     const [ form, setForm ] = useState<SigninForm>({id: '', pw: ''})
+
+    const { signinMutation } = useAuth(form.id)
 
     const moveToSignin = () => {
         navigate('/signup')
@@ -18,8 +21,7 @@ const SigninPage = () => {
         e.preventDefault()
         if(!form.id) return alert('아이디를 입력해주세요.')
         if(!form.pw) return alert('비밀번호를 입력해주세요.')
-
-        alert('로그인 로직 추가 예정')
+        signinMutation.mutate(form);
     }
 
     return (
@@ -39,7 +41,6 @@ const SigninPage = () => {
                     label='비밀번호' 
                     name='pw' 
                     placeHolder='PW를 입력해주세요'
-                    // rule={validation.pw}
                     />
             </section>
             <section className={styles.buttonSection}>
