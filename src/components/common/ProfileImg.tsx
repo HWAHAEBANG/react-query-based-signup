@@ -1,5 +1,6 @@
 import styles from './ProfileImg.module.scss'
 import defaultAvatar from 'assets/defaultAvatar.png'
+import { ChangeEvent, useState } from 'react'
 
 
 interface Props<T> {
@@ -9,13 +10,15 @@ interface Props<T> {
 
 
 const ProfileImg = <T,>({inputValue, setInputValue}:Props<T>) => {
+    const [tempPreview, setTempPreview] = useState('');
+
     const saveImg = (e:any) => {
-        const file = e.target.files[0]
+        const file = e.target.files[0] 
         const reader = new FileReader()
         reader.readAsDataURL(file)
         reader.onloadend = () => {
-            console.log(typeof reader.result, reader.result);
-            setInputValue((prev) => ({...prev, profileImg: `${reader.result}`}))
+            setTempPreview(`${reader.result}`) // 임시로 미리보기 보이도록 구현. 
+            setInputValue((prev) => ({...prev, profileImg: file.name})) // 실제 쿠키에는 파일명만 저장 (사유: 용량제한, 과제 조건)
         }
     }
 
@@ -23,7 +26,7 @@ const ProfileImg = <T,>({inputValue, setInputValue}:Props<T>) => {
             <section className={styles.section}>
                 <div className={styles.imgWrapper}>
                     <img 
-                        src={inputValue || defaultAvatar}
+                        src={tempPreview || defaultAvatar}
                         alt="프로필 이미지" />
                 </div>
                 <div className={styles.uploadWrapper}>
