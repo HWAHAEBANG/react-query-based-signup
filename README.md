@@ -73,6 +73,7 @@ $ npm start
  ┣ 📂routes // 라우팅
  ┃ ┣ 📜ProtectedRoute.tsx // 비로그인 사용자의 접근 제한(회원 정보 조회 페이지)
  ┃ ┣ 📜PublicRoute.tsx // 로그인 사용자의 접근 제한(로그인, 회원가입 페이지)
+ ┃ ┣ 📜QueryErrorBoundary.tsx // 에러 바운더리
  ┃ ┗ 📜Router.tsx
  ┣ 📂styles // 전역 스타일
  ┃ ┗ 📜_variables.scss
@@ -83,7 +84,8 @@ $ npm start
  ┃ ┗ 📜validationType.ts
  ┣ 📂utils // 유틸 함수
  ┃ ┣ 📜currentTimeGenerator.ts // 현재시간을 포맷팅하여 만환하는 유틸 함수
- ┃ ┗ 📜validation.ts // 유효성 검사를 담당하는 유틸 함수
+ ┃ ┣ 📜validation.ts // 유효성 검사를 로직 유틸 함수
+ ┃ ┗ 📜validationChecker // 모든 유효성 검사를 통과하는지 확인하는 유틸 함수
  ┣ 📜App.module.scss
  ┣ 📜App.test.tsx
  ┣ 📜App.tsx
@@ -97,6 +99,7 @@ $ npm start
 
 ```
     "react-cookie": "^7.1.0",
+    "react-error-boundary": "^4.0.13",
     "react-icons": "^5.0.1",
     "react-router-dom": "^6.22.3",
     "sass": "^1.72.0",
@@ -116,6 +119,7 @@ $ npm start
 - Promise객체를 전달 받은 useApi 훅은 이것을 async wait으로 처리하여 해당 응답을 useAuth 훅으로 전달합니다.
 - 최종 응답을 전달받은 useAuth훅은 요청의 성공 실패 여부를 판단하고 이에 따라 컴포넌트에 데이터를 제공합니다.
 - 추가적으로, 로그인이 성공하면 세션(SID)를 쿠키 스토리지에 생성하고, 이것을 기반으로 현재 로그인 사용자의 세션을 유지하고 관리합니다.
+  
 ![image](https://github.com/HWAHAEBANG/react-query-based-signup/assets/101491870/fe41708d-96da-4bdc-aa32-2db13ab6f425)
 
 
@@ -233,6 +237,7 @@ $ npm start
        
 
      - 유효성 검사 기능 input 컴포넌트
+       
          ![image](https://github.com/HWAHAEBANG/react-query-based-signup/assets/101491870/443e8e1c-2122-47fa-a1d2-2c7153011383)
        
 
@@ -241,6 +246,42 @@ $ npm start
        ![image](https://github.com/HWAHAEBANG/react-query-based-signup/assets/101491870/5a693a63-db5e-442d-9846-e948db6f53e5)
 
 
-
-
 <br/>
+
+## 3.6 에러 핸들링
+   에러 핸들링은 에러 바운더리에 fall back UI를 바인딩하여 구현하였습니다. fallback렌더 함수를 사용해 다시 시도 기능을 지원하고 있습니다.
+   ```js
+   const QueryErrorBoundary = ({ children }: Props) => {
+  const { reset } = useQueryErrorResetBoundary(); 
+
+  return (
+    <ErrorBoundary
+      onReset={reset}
+      fallbackRender={({ resetErrorBoundary }) => (
+        <ErrorPage resetErrorBoundary={resetErrorBoundary}/>
+      )}
+    >
+      {children}
+    </ErrorBoundary>
+  );
+};
+
+export default QueryErrorBoundary;
+   ```
+
+   ### 미지원 해상도 접근시 에러 발생 구현
+
+   - 최초 사이트에 들어왔을시 지원 해상도를 초과한다면 에러를 던져 바운더리에 감지되도록 합니다.
+   - 사이즈를 조절하여 770px 미만에 접어들면 fallback렌더 함수를 작동시켜 원래의 페이지를 보여줍니다.
+   - 
+   ![Animation1](https://github.com/HWAHAEBANG/react-query-based-signup/assets/101491870/4178a539-a66b-4db7-a326-79e91e16cc6f)
+
+   
+   ### 3번 가입 시도 및 로그인시 에러 발생 구현
+   
+   - 컴포넌트에서 useRef훅으로 요청 시도한 횟수를 카운트하여 3이 되었을 시 에러를 던져 에러 바운더리에 감지되도록 합니다.
+   - 다시 시도 버튼을 눌러 이전 화면으로 되돌아 갈 수 있습니다.
+   - 
+   ![Animation2](https://github.com/HWAHAEBANG/react-query-based-signup/assets/101491870/b3cb2f53-c97a-4976-987d-5f21dd42caa1)
+
+
