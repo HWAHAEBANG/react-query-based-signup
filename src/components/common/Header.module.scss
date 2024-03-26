@@ -27,7 +27,8 @@
 
         a {
         color: $color-text-bright;
-        font-size: 15px;
+        font-size: 1rem;
+        white-space: nowrap;
         }
     } 
 
@@ -39,9 +40,23 @@
         border-radius: 20px;
         font-weight: 700;
         cursor: pointer;
+        white-space: nowrap;
+        font-size: 1rem;
 
         &:hover {
             filter: brightness(0.9);
         }
     }
+}
+
+
+@media screen and (max-width: 500px) {
+    .header {
+       section {
+        display: none;
+        img {
+            width: 70px;
+        }
+    }
+}
 }

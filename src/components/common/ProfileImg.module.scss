@@ -12,8 +12,8 @@
     margin-bottom: 20px;
 
     .imgWrapper {
-        width: 150px;
-        height: 150px;
+        width: 10rem;
+        height: 10rem;
         border-radius: 50%;
         overflow: hidden;
         display: flex;
@@ -38,6 +38,7 @@
             border-radius: 5px;
             line-height: 50px;
             cursor: pointer;
+            white-space: nowrap;
             
             &:hover {
             filter: brightness(0.95);
@@ -49,6 +50,7 @@
             padding-left: 10px;
             border: solid 1px $color-border;
             border-radius: 5px;
+            font-size: 0.8rem;
         }
     }
 }
