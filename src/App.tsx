@@ -4,26 +4,28 @@ import Header from './components/common/Header';
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 import { SessionProvider } from 'contexts/SessionProvider';
 import useViewportError from 'hooks/useViewportError';
+import QueryErrorBoundary from 'routes/QueryErrorBoundary';
 
 function App() {
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
-        staleTime: 5 * 60 * 1000
+        throwOnError: true,
       },
     },
   })
 
-    useViewportError()
 
   return (
     <QueryClientProvider client={queryClient}>
-      <SessionProvider>
+       <QueryErrorBoundary>
+        <SessionProvider>
         <Header/>
         <div className={styles.outletWrapper}>
           <Outlet/>
         </div>
       </SessionProvider>
+      </QueryErrorBoundary>
     </QueryClientProvider>
   );
 }

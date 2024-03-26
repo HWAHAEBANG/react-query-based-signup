@@ -3,6 +3,7 @@ import { Link, Navigate, useNavigate } from 'react-router-dom'
 import styles from './Header.module.scss'
 import logo from 'assets/logo.png'
 import { SessionContext } from 'contexts/SessionProvider'
+import useViewportError from 'hooks/useViewportError'
 
 const Header = () => {
     const navigate = useNavigate()
@@ -15,6 +16,8 @@ const Header = () => {
     const moveToSignin = () => {
         navigate('/signin')
     }
+
+    useViewportError()
 
   return (
     <header className={styles.header}>

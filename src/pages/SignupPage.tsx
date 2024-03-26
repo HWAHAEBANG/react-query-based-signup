@@ -15,7 +15,7 @@ const SignupPage = () => {
     const { signupMutation } = useAuth(form.id)
     const attemptCount = useRef(0)
 
-   if(attemptCount.current >= 2) navigate('/error')
+   if(attemptCount.current >= 2) throw new Error('API 호출 제한을 초과했습니다.')
    
     const moveToSignin = () => {
         navigate('/signup')
@@ -25,8 +25,10 @@ const SignupPage = () => {
 
     const handleSubmit = (e:FormEvent<HTMLFormElement> ) => {
         e.preventDefault()
-        attemptCount.current += 1
-        if(!everyValidation) return alert('입력값 형식을 준수해주세요. 3번 실패시 에러 발생')
+        if(!everyValidation){
+            alert('입력값 형식을 준수해주세요. 3번 실패 시 에러 발생')
+            return attemptCount.current += 1
+        }
         signupMutation.mutate(form)
     }
 

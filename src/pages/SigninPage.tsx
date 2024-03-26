@@ -12,7 +12,7 @@ const SigninPage = () => {
     const [ form, setForm ] = useState<SigninForm>({id: '', pw: ''})
     const attemptCount = useRef(0)
 
-   if(attemptCount.current >= 3) navigate('/error')
+   if(attemptCount.current >= 3) throw new Error('API 호출 제한을 초과했습니다.')
 
     const { signinMutation } = useAuth(form.id)
 

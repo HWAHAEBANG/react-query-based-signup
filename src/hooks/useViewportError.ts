@@ -1,25 +1,9 @@
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-
 const useViewportError = () => {
-    const navigate = useNavigate()
+    const viewportWidth = window.innerWidth;
 
-    useEffect(() => {
-        const handleViewportChange = () => {
-            const viewportWidth = window.innerWidth;
-            
-            if (viewportWidth > 770) {
-
-                navigate('/error')
-            }
-        };
-
-        window.addEventListener('resize', handleViewportChange);
-
-        return () => {
-            window.removeEventListener('resize', handleViewportChange);
-        };
-    }, []);
+    if (viewportWidth > 770) {
+    throw new RangeError('지원되지 않는 해상도 입니다.');
+}
 }
 
 export default useViewportError;
