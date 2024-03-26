@@ -17,7 +17,7 @@ const useAuth = (id:string) => {
             navigate('/user-info')
         },
         onError: (err) => {
-            alert('아이디 또는 비밀번호가 틀렸습니다.')
+            alert('아이디 또는 비밀번호가 틀렸습니다. 3번 실패 시 에러 발생')
         }
     })
 
@@ -29,7 +29,7 @@ const useAuth = (id:string) => {
             navigate('/signin')
         },
         onError: (err) => {
-            alert('일시적인 오류가 발생하였습니다. 다시 시도 바랍니다.')
+            alert('회원 가입 실패. 입력 값을 다시 확인해주세요. 3번 실패 시 에러 발생')
         }
     })
 

@@ -12,13 +12,13 @@ interface Props<T> {
 const ProfileImg = <T,>({inputValue, setInputValue}:Props<T>) => {
     const [tempPreview, setTempPreview] = useState('');
 
-    const saveImg = (e:any) => {
-        const file = e.target.files[0] 
+    const saveImg = (e:ChangeEvent<HTMLInputElement>) => {
+        const file = e?.target?.files?.[0] 
         const reader = new FileReader()
-        reader.readAsDataURL(file)
+        reader.readAsDataURL(file as File)
         reader.onloadend = () => {
             setTempPreview(`${reader.result}`) // 임시로 미리보기 보이도록 구현. 
-            setInputValue((prev) => ({...prev, profileImg: file.name})) // 실제 쿠키에는 파일명만 저장 (사유: 용량제한, 과제 조건)
+            setInputValue((prev) => ({...prev, profileImg: file?.name})) // 실제 쿠키에는 파일명만 저장 (사유: 용량제한, 과제 조건)
         }
     }
 

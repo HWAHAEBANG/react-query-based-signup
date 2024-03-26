@@ -16,9 +16,7 @@ const SignupPage = () => {
     const attemptCount = useRef(0)
 
    if(attemptCount.current >= 2) navigate('/error')
-   console.log(attemptCount.current);
    
-
     const moveToSignin = () => {
         navigate('/signup')
     }

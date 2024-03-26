@@ -15,7 +15,7 @@ interface Props {
 
 export const SessionProvider = ({children}: Props) => {
     const { checkSession, removeSession } = useSession();
-    const [session, setSession] = useState<any>(checkSession())
+    const [session, setSession] = useState<boolean>(checkSession())
     const navigate = useNavigate()
 
 

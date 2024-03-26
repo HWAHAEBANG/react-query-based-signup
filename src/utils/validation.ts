@@ -1,5 +1,8 @@
+import { SigninForm } from "types/signinType";
+import { SignupForm } from "types/signupType";
+
 interface Validation {
-    [key: string]: { description: string; validationMessage: string; validator(inputValue: any): boolean; }[];
+    [key: string]: { description: string; validationMessage: string; validator(inputValue: SigninForm | SignupForm): boolean; }[];
 }
 
 
@@ -8,7 +11,7 @@ export const validation:Validation = {
         {
             description: '이메일 형식 준수',
             validationMessage: '이메일 형식으로 입력해주세요.',
-            validator(inputValue:any){
+            validator(inputValue:SigninForm | SignupForm){
                 return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(inputValue.id)
             }
         },
@@ -17,42 +20,42 @@ export const validation:Validation = {
         {
             description: '13자 이하',
             validationMessage: '13자를 초과하였습니다.',
-            validator(inputValue:any){
+            validator(inputValue:SigninForm | SignupForm){
                 return /^.{1,13}$/.test(inputValue.pw)
             },
         },
         {
             description: '소문자 포함',
             validationMessage: '영어 소문자를 반드시 1개 이상 포함해주세요.',
-            validator(inputValue:any){
+            validator(inputValue:SigninForm | SignupForm){
                 return /[a-z]/.test(inputValue.pw)
             },
         },
         {   
             description: '대문자 포함',
             validationMessage:'영어 대문자를 반드시 1개 이상 포함해주세요.',
-            validator(inputValue:any){
+            validator(inputValue:SigninForm | SignupForm){
                 return /[A-Z]/.test(inputValue.pw)
             },
         },
         {
             description: '숫자 포함',
             validationMessage: '숫자를 반드시 1개 이상 포함해주세요.',
-            validator(inputValue:any){
+            validator(inputValue:SigninForm | SignupForm){
                 return /\d/.test(inputValue.pw)
             },
         },
         {
             description: '특수 문자 포함',
             validationMessage: '특수 문자를 각각 1개 이상 포함해주세요.',
-            validator(inputValue:any){
+            validator(inputValue:SigninForm | SignupForm){
                 return /[^a-zA-Z0-9\s]/.test(inputValue.pw)
             },
         },
         {
             description: '연속된 숫자 3개 이상 금지',
             validationMessage: '',
-            validator(inputValue:any){
+            validator(inputValue:SigninForm | SignupForm){
                 let answer = true
                 const arr:string[] = inputValue.pw.split('')
                 arr.forEach((val, idx) => {
@@ -70,7 +73,7 @@ export const validation:Validation = {
         {
             description: '공백 사용 금지',
             validationMessage: '공백은 사용 불가능합니다.',
-            validator(inputValue:any){
+            validator(inputValue:SigninForm | SignupForm){
                 return !/\s/.test(inputValue.pw)
             },
         },
@@ -79,7 +82,7 @@ export const validation:Validation = {
         {
             description: '비밀번호와 일치 여부',
             validationMessage: '비밀번호와 일치하지 않습니다.',
-            validator(inputValue:any){
+            validator(inputValue:SignupForm){
                 return inputValue.pw === inputValue.pwCheck
             },
         },
@@ -88,7 +91,7 @@ export const validation:Validation = {
         {
             description: '5자 이하',
             validationMessage: '5자를 초과하였습니다.',
-            validator(inputValue:any){
+            validator(inputValue:SignupForm){
                 return /^.{1,5}$/.test(inputValue.name)
             },
         },
