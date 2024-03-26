@@ -1,4 +1,4 @@
-import { useState, FormEvent } from "react"
+import { useState, FormEvent, useRef } from "react"
 import { useNavigate } from "react-router-dom"
 import styles from "./SignupPage.module.scss"
 import ProfileImg from "components/common/ProfileImg"
@@ -7,23 +7,31 @@ import InputBox from "components/common/InputBox"
 import RegularButton from "components/common/RegularButton"
 import { SignupForm } from "types/signupType"
 import useAuth from "hooks/useAuth"
+import { vaidationChecker } from "utils/validationChecker"
 
 const SignupPage = () => {
     const navigate = useNavigate()
     const [ form, setForm ] = useState<SignupForm>({id: '', pw: '', pwCheck:'', name:'', profileImg:''})
     const { signupMutation } = useAuth(form.id)
+    const attemptCount = useRef(0)
+
+   if(attemptCount.current >= 2) navigate('/error')
+   console.log(attemptCount.current);
+   
 
     const moveToSignin = () => {
         navigate('/signup')
     }
 
-    const {id, pw, pwCheck, name} = form
-    const allNotEmpty = Object.values({id, pw, pwCheck, name}).some(value => value === '');
+    const everyValidation = vaidationChecker(form)
 
     const handleSubmit = (e:FormEvent<HTMLFormElement> ) => {
         e.preventDefault()
+        attemptCount.current += 1
+        if(!everyValidation) return alert('입력값 형식을 준수해주세요. 3번 실패시 에러 발생')
         signupMutation.mutate(form)
     }
+
 
     return (
         <form className={styles.signupForm} onSubmit={handleSubmit}>
@@ -66,7 +74,7 @@ const SignupPage = () => {
                 <RegularButton
                     onClick={moveToSignin}
                     type="submit"
-                    disabled={allNotEmpty}
+                    // disabled={!everyValidation}
                 >
                     회원가입
                 </RegularButton>

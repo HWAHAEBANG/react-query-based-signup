@@ -1,4 +1,4 @@
-import { useState, FormEvent } from "react"
+import { useState, FormEvent, useRef } from "react"
 import { useNavigate } from "react-router-dom"
 import styles from "./SigninPage.module.scss"
 import { validation } from "utils/validation"
@@ -10,6 +10,9 @@ import useAuth from "hooks/useAuth"
 const SigninPage = () => {
     const navigate = useNavigate()
     const [ form, setForm ] = useState<SigninForm>({id: '', pw: ''})
+    const attemptCount = useRef(0)
+
+   if(attemptCount.current >= 3) navigate('/error')
 
     const { signinMutation } = useAuth(form.id)
 
@@ -22,6 +25,7 @@ const SigninPage = () => {
         if(!form.id) return alert('아이디를 입력해주세요.')
         if(!form.pw) return alert('비밀번호를 입력해주세요.')
         signinMutation.mutate(form);
+        attemptCount.current += 1
     }
 
     return (

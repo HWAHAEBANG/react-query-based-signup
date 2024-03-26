@@ -1,4 +1,9 @@
-export const validation = {
+interface Validation {
+    [key: string]: { description: string; validationMessage: string; validator(inputValue: any): boolean; }[];
+}
+
+
+export const validation:Validation = {
     id : [
         {
             description: '이메일 형식 준수',

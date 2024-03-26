@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import styles from './ErrorPage.module.scss'
 
 const ErrorPage = () => {
   const navigator = useNavigate()
@@ -25,7 +26,7 @@ const ErrorPage = () => {
     }, []); 
 
   return (
-    <main>
+    <main className={styles.main}>
       {viewPortError && (
         <div>
            <p>지원하지 않는 해상도입니다.</p>
