@@ -5,6 +5,8 @@ import SigninPage from "../pages/SigninPage";
 import HomePage from "../pages/HomePage";
 import SignupPage from "../pages/SignupPage";
 import UserInfoPage from "../pages/UserInfoPage";
+import PublicRoute from "./PublicRoute";
+import ProtectedRoute from "./ProtectedRoute";
 
 export const Router = createBrowserRouter([
     {
@@ -15,19 +17,28 @@ export const Router = createBrowserRouter([
             {
                 path:'/',
                 index: true,
-                element: <HomePage/>
+                element: <HomePage/>,
             },
             {
                 path: '/signin',
-                element: <SigninPage/>
+                element: (
+                    <PublicRoute>
+                        <SigninPage/>
+                    </PublicRoute>)
             },
             {
                 path: '/signup',
-                element: <SignupPage/>
+                element: (
+                    <PublicRoute>
+                        <SignupPage/>
+                    </PublicRoute>)
             },
             {
                 path: '/user-info',
-                element: <UserInfoPage/>
+                element: (
+                    <ProtectedRoute>
+                        <UserInfoPage/>
+                    </ProtectedRoute>)
             }
         ]
     }
